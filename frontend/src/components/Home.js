@@ -35,23 +35,23 @@ function Home() {
                         <div className="modal-body">
                             <form className="my-3">
                                 <div className="mb-3">
-                                    <label htmlFor="title" className="form-label">Logo</label>
+                                    <label htmlFor="logo" className="form-label">Logo</label>
                                     <input type="file" id="logo" name="logo" accept="image/*" className="form-control" value={stock.logo} onChange={onChange} aria-describedby="emailHelp" />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="description" className="form-label">Stock Name</label>
+                                    <label htmlFor="name" className="form-label">Stock Name</label>
                                     <input type="text" className="form-control" id="name" name="name" value={stock.name} onChange={onChange} />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="tag" className="form-label">Buy Price</label>
-                                    <input type="text" className="form-control" id="buy_price" name="buy_price" value={stock.price} onChange={onChange} />
+                                    <label htmlFor="buy_price" className="form-label">Buy Price</label>
+                                    <input type="text" className="form-control" id="buy_price" name="buy_price" value={stock.buy_price} onChange={onChange} />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="tag" className="form-label">Current Price</label>
-                                    <input type="text" className="form-control" id="curr_price" name="curr_price" value={stock.price} onChange={onChange} />
+                                    <label htmlFor="curr_price" className="form-label">Current Price</label>
+                                    <input type="text" className="form-control" id="curr_price" name="curr_price" value={stock.curr_price} onChange={onChange} />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="tag" className="form-label">Quantity</label>
+                                    <label htmlFor="qty" className="form-label">Quantity</label>
                                     <input type="text" className="form-control" id="qty" name="qty" value={stock.qty} onChange={onChange} />
                                 </div>
                             </form>
