@@ -3,8 +3,9 @@ const router = express.Router();
 
 // Define routes
 router.get('/:id/add', (req, res) => {
-    //
-    res.send("add"); 
+    //create add functionality
+    const productId = req.params.id;
+    res.send(productId);
 });
 
 router.get('/login', (req, res) => {
@@ -17,4 +18,4 @@ router.get('/register', (req, res) => {
     res.send("register func");
 });
 
-module.exports = router
+module.exports = router;
