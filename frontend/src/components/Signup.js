@@ -1,7 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function
-    () {
+function Signup() {
+    const [credentials, setCredentials] = useState({ name: "", email: "", password: "" })
+
+    let navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const { name, email, password } = credentials
+        const response = await fetch("http://localhost:3001/api/v1/register", {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, password })
+        })
+        const json = await response.json()
+        //console.log(json)
+        if (json.success) {
+            // save the auth token and redirect
+            localStorage.setItem('token', json.token)
+            navigate("/")
+        } else {
+            alert("Invalid Details. Please check and try again!")
+        }
+
+    }
+
+    const onChange = (e) => {
+        setCredentials({ ...credentials, [e.target.name]: e.target.value })
+    }
     return (
         <>
             <title>Glassmorphism login Form Tutorial in html css</title>
@@ -26,16 +55,18 @@ export default function
                 <div className="shape" />
                 <div className="shape" />
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <h3>Signup Here</h3>
-                <label htmlFor="username">Full Name</label>
-                <input type="text" placeholder="Your Full Name" id="name" />
-                <label htmlFor="username">Email</label>
-                <input type="text" placeholder="Email" id="username" />
+                <label htmlFor="name">Full Name</label>
+                <input type="text" placeholder="Your Full Name" id="name" value={credentials.name} name="name" onChange={onChange} />
+                <label htmlFor="email">Email</label>
+                <input type="text" placeholder="Email" id="email" value={credentials.email} name="email" onChange={onChange} />
                 <label htmlFor="password">Password</label>
-                <input type="password" placeholder="Password" id="password" />
-                <button>Log In</button>
+                <input type="password" placeholder="Password" id="password" value={credentials.password} name="password" onChange={onChange} />
+                <button type="submit">Sign Up</button>
             </form>
         </>
     )
 }
+
+export default Signup
