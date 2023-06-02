@@ -8,8 +8,8 @@ router.get('/:id/add', (req, res) => {
     res.send(productId);
 });
 
-router.get('/login', loginUser);
+router.route('/login').post(loginUser);
 
-router.get('/register', registerUser);
+router.route('/register').post(registerUser);
 
 module.exports = router;

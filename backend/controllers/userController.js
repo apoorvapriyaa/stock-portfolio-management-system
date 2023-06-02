@@ -16,8 +16,9 @@ exports.registerUser = catchAsyncError(async(req,res,next) => {
 
 // login User
 exports.loginUser = catchAsyncError(async(req,res,next) => {
-
+    console.log(req.body); //empty
     const {email, password} = req.body 
+    console.log(email,password); 
     if(!email || !password){
         return next( new ErrorHandler("Please Enter Email and Password " , 400))
     }
@@ -30,7 +31,6 @@ exports.loginUser = catchAsyncError(async(req,res,next) => {
         return next(new ErrorHandler("Password Invalid" , 401))
     }
     jwtToken(user,200,res)
-
 })
 
 //logout User
