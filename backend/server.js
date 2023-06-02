@@ -1,4 +1,5 @@
-const routes = require('./routes/stockroutes');
+const stockroutes = require('./routes/stockroutes');
+const userroutes = require('./routes/userroutes');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -23,10 +24,11 @@ app.use(express.json())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-
 app.use(cookieParser())
+app.use(cors({ credentials: true, origin: 'http://localhost:3001' }));
 
-app.use('/api/v1/', routes);
+app.use('/api/v1/', stockroutes);
+app.use('/api/v1/', userroutes);
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);

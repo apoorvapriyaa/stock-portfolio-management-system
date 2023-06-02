@@ -1,7 +1,7 @@
-const ErrorHandler = require("../util/errorhandler");
+const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncError = require("./catchAsyncError");
 const jwt = require ( 'jsonwebtoken' )
-const User = require('../model/userModel')
+const User = require('../models/userModel')
 
 exports.isAuthorized = catchAsyncError(async(req,res,next)=>{
     const {token} = req.cookies
@@ -19,4 +19,4 @@ exports.authorizedRole = (...roles) => {
         return next( new ErrorHandler(`Role : ${req.user.role} is not allowed to access this` , 403))
         next()
     }
-} 
+}
