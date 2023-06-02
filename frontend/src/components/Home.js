@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './css/addbutton.css'
 
 function Home() {
@@ -14,6 +15,15 @@ function Home() {
     const onChange = (e) => {
         setStock({ ...stock, [e.target.name]: e.target.value })
     }
+    let navigate = useNavigate()
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate("/")
+        } else {
+            navigate("/login")
+        }
+        // eslint-disable-next-line
+    }, [])
     return (
         <div className='container'>
             <br />

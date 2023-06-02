@@ -11,10 +11,9 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     const user = await User.create({
         name, email, password
     })
-
     jwtToken(user, 201, res)
 })
-// process.env.SECRET
+
 // login User
 exports.loginUser = catchAsyncError(async (req, res, next) => {
     //console.log(req.body); //empty

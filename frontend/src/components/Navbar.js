@@ -1,26 +1,61 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import logo from './logo.png'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 function Navbar() {
+    let location = useLocation()
+
+    let navStyle = {
+        backgroundColor: "#457b9d"
+    }
+    let navigate = useNavigate()
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        navigate("/login")
+    }
     return (
         <div>
-            <nav className="navbar fixed-top" style={{ backgroundColor: "#2f3e46", color: "white" }}>
+            <nav className="navbar navbar-expand-lg" style={navStyle}>
                 <div className="container-fluid">
-                    <Link className='nav-link' to="/">
-                        <img className="d-inline-block align-text-top mx-2" src={logo} alt="" style={{ width: "30px", height: "30px" }} />
-                        Home</Link>
-                    <div className="d-flex">
-                        <Link className='nav-link mx-3' to="/login">
-                            Login
-                        </Link>
-                        <Link className='nav-link' aria-current="page" to="/register">
-                            Signup
-                        </Link>
+                    <Link className="navbar-brand" to="/">
+                        Stocks
+                    </Link>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span className="navbar-toggler-icon" />
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">
+                                    Home
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} aria-current="page" to="/about">
+                                    About
+                                </Link>
+                            </li>
+                        </ul>
+                        {!localStorage.getItem('token') ? <form className="d-flex" role="search">
+                            <Link className="btn btn-outline-dark mx-2" to="/login" role="button">
+                                Login
+                            </Link>
+                            <Link className="btn btn-outline-dark mx-2" to="/register" role="button">
+                                Signup
+                            </Link>
+                        </form> : <button className="btn btn-outline-dark mx-2" onClick={handleLogout} role="button">
+                            Logout
+                        </button>}
                     </div>
                 </div>
             </nav>
-
         </div >
     )
 }
