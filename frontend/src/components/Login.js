@@ -1,7 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function
-    () {
+function Login() {
+    const [credentials, setCredentials] = useState({ email: "", password: "" })
+    let navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const response = await fetch("http://localhost:3001/api/v1/login", {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ email: credentials.email, password: credentials.password })
+        })
+        const json = await response.json()
+        if (json.success) {
+            // save the auth token and redirect
+            localStorage.setItem('token', json.token)
+            navigate("/")
+        } else {
+            alert("Invalid Credentials")
+        }
+    }
+
+    const onChange = (e) => {
+        setCredentials({ ...credentials, [e.target.name]: e.target.value })
+    }
     return (
         <div>
             <>
@@ -27,12 +52,12 @@ export default function
                     <div className="shape" />
                     <div className="shape" />
                 </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h3>Login Here</h3>
-                    <label htmlFor="username">Email</label>
-                    <input type="text" placeholder="Email" id="username" />
+                    <label htmlFor="email">Email</label>
+                    <input type="text" placeholder="Email" id="email" name="email" value={credentials.email} onChange={onChange} />
                     <label htmlFor="password">Password</label>
-                    <input type="password" placeholder="Password" id="password" />
+                    <input type="password" placeholder="Password" id="password" name="password" value={credentials.password} onChange={onChange} />
                     <button>Log In</button>
                 </form>
             </>
@@ -40,3 +65,5 @@ export default function
         </div>
     )
 }
+
+export default Login

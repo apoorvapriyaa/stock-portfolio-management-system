@@ -14,7 +14,7 @@ function Navbar() {
                         <Link className='nav-link mx-3' to="/login">
                             Login
                         </Link>
-                        <Link className='nav-link' aria-current="page" to="/signup">
+                        <Link className='nav-link' aria-current="page" to="/register">
                             Signup
                         </Link>
                     </div>
