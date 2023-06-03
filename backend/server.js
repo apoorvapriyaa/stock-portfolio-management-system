@@ -19,13 +19,13 @@ const express = require('express');
 const app = express()
 const port = 3001;
 
-app.use(cors())
+//app.use(cors())
 app.use(express.json())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: 'http://localhost:3001' }));
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
 app.use('/api/v1/', stockroutes);
 app.use('/api/v1/', userroutes);
