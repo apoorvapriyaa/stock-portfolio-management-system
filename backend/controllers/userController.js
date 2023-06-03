@@ -8,6 +8,9 @@ const crypto = require('crypto')
 //register a User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
+    if (!email || !password || !name) {
+        return res.status(400).json({ error: "enter details" })
+    }
     const user = await User.create({
         name, email, password
     })
@@ -18,15 +21,15 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
 exports.loginUser = catchAsyncError(async (req, res, next) => {
     const { email, password } = req.body
     if (!email || !password) {
-        return next(new ErrorHandler("Please Enter Email and Password ", 400))
+        return res.status(400).json({ error: "enter details" })
     }
     const user = await User.findOne({ email }).select("+password")
     if (!user) {
-        return next(new ErrorHandler("User Not Found", 401))
+        return res.status(400).json({ error: "user not found" })
     }
     const isCorrect = await user.comparePassword(password)
     if (!isCorrect) {
-        return next(new ErrorHandler("Password Invalid", 401))
+        return res.status(400).json({ error: "pass invalid" })
     }
     jwtToken(user, 200, res)
 })
@@ -54,7 +57,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
     await user.save({ validateBeforeSave: false })
     console.log(resetToken)
     const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`
-    const message = `Your password reset Token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email them, please ignore it`
+    const message = `Your password reset Token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it`
     try {
         await sendEmail({
             email: user.email,

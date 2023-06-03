@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function Signup() {
+function Signup(props) {
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "" })
 
     let navigate = useNavigate()
@@ -22,10 +22,9 @@ function Signup() {
             // save the auth token and redirect
             localStorage.setItem('token', json.token)
             navigate("/")
-        } else {
-            alert("Invalid Details. Please check and try again!")
+        } else if (json.error === "enter details") {
+            props.showAlert("Please enter all the details!", "Failure", "danger")
         }
-
     }
 
     const onChange = (e) => {
@@ -94,5 +93,4 @@ function Signup() {
         </div>
     )
 }
-
 export default Signup
