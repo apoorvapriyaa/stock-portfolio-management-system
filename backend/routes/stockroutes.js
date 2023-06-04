@@ -9,6 +9,6 @@ router.route('/stock/add').post(isAuthorized, addStock);
 
 router.route('/stock/remove/:id').delete(isAuthorized, deleteStock);
 
-router.route('/stocks').get(isAuthorized, getAllStocks);
+router.route('/stocks').post(isAuthorized, getAllStocks);
 
 module.exports = router;

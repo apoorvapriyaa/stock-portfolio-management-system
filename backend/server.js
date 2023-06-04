@@ -26,6 +26,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.set("trust proxy",1)
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Replace with your client's domain
+    res.header('Access-Control-Allow-Credentials', true);
+    next();
+  });
 
 app.use('/api/v1/', stockroutes);
 app.use('/api/v1/', userroutes);

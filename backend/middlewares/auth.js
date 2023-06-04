@@ -4,7 +4,8 @@ const jwt = require ( 'jsonwebtoken' )
 const User = require('../models/userModel')
 
 exports.isAuthorized = catchAsyncError(async(req,res,next)=>{
-    const {token} = req.cookies
+    // console.log(req.body.token);
+    const {token} = req.body
     if(!token)
     next(new ErrorHandler("Please Login to access this" , 401))
     const decoded = jwt.verify(token, process.env.SECRET)
@@ -13,7 +14,6 @@ exports.isAuthorized = catchAsyncError(async(req,res,next)=>{
 })
 
 exports.authorizedRole = (...roles) => {
-
     return (req,res,next)=>{
         if(! roles.includes(req.user.role))
         return next( new ErrorHandler(`Role : ${req.user.role} is not allowed to access this` , 403))
