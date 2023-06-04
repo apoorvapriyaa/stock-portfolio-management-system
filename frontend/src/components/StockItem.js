@@ -15,6 +15,7 @@ function StockItem(props) {
                     <td>{stock.price}</td>
                     <td>{stock.quantity}</td>
                     <td>{stock.totalAmount}</td>
+                    <td style={{ color: stock.predicted === "Bullish" ? "green" : "red" }}>{stock.predicted}</td>
                     <td><i className="fa-solid fa-trash-can mx-2" onClick={() => {
                         deleteStock(stock._id)
                         props.showAlert("Stock Successfully deleted!", "Success", "success")
