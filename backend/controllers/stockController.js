@@ -5,6 +5,7 @@ const catchAsyncError = require('../middlewares/catchAsyncError')
 //get all products
 exports.getAllStocks = catchAsyncError( async(req,res,next) => {
     const stocks = await stock.find({ user: req.user._id });
+    console.log(stocks); 
     res.status(200).json({
         status : true,
         stocks

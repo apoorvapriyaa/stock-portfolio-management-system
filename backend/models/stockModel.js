@@ -34,6 +34,10 @@ const stockSchema = new mongoose.Schema({
     ref : "User",
     required: true
   },
+  predicted: {
+    type:String, 
+    default: "Bullish"
+  },
   createdAt: {
     type: Date,
     default: Date.now,
