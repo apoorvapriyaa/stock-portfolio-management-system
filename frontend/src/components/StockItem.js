@@ -8,21 +8,19 @@ function StockItem(props) {
 
     return (
         <>
-            <table>
-                <tbody>
-                    <tr>
-                        <th scope="row">{stock.symbol}</th>
-                        <td>{stock.name}</td>
-                        <td>{stock.buy_price}</td>
-                        <td>{stock.curr_price}</td>
-                        <td>{stock.qty}</td>
-                        <td><i className="fa-solid fa-trash-can mx-2" onClick={() => {
-                            deleteStock(stock._id)
-                            props.showAlert("Stock Successfully deleted!", "Success", "success")
-                        }} /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <tbody>
+                <tr>
+                    <th scope="row">{stock.symbol}</th>
+                    <td>{stock.name}</td>
+                    <td>{stock.price}</td>
+                    <td>{stock.quantity}</td>
+                    <td>{stock.totalAmount}</td>
+                    <td><i className="fa-solid fa-trash-can mx-2" onClick={() => {
+                        deleteStock(stock._id)
+                        props.showAlert("Stock Successfully deleted!", "Success", "success")
+                    }} /></td>
+                </tr>
+            </tbody>
         </>
     )
 }
