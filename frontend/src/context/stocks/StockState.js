@@ -10,14 +10,15 @@ const StockState = (props) => {
     // fetch all stocks
     const getAllStocks = async () => {
         const response = await fetch(`${host}/api/v1/stocks`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'token': localStorage.getItem('token')
-            }
+            },
+            body: JSON.stringify({token: localStorage.getItem('token')})
         })
         const json = await response.json();
-        setStocks(json)
+        setStocks(json.stocks)
     }
 
     // add a stock
