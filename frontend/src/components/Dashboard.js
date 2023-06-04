@@ -30,16 +30,17 @@ function Dashboard(props) {
                         <th scope="col">Price</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Total Amount</th>
+                        <th scope="col">Prediction</th>
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                <div className='container mx-2 my-3'>
-                    {stocks.length === 0 && "No stocks to display."}
-                </div>
                 {stocks.map((stock) => {
                     return <StockItem key={stock._id} stock={stock} showAlert={props.showAlert} />
                 })}
             </table>
+            <div className='container mx-2 my-3'>
+                {stocks.length === 0 && "No stocks to display."}
+            </div>
         </>
     )
 }
