@@ -15,23 +15,23 @@ const StockState = (props) => {
                 'Content-Type': 'application/json',
                 'token': localStorage.getItem('token')
             },
-            body: JSON.stringify({token: localStorage.getItem('token')})
+            body: JSON.stringify({ token: localStorage.getItem('token') })
         })
         const json = await response.json();
         setStocks(json.stocks)
     }
 
     // add a stock
-    const addStock = async (symbol, name, buy_price, curr_price, qty) => {
+    const addStock = async (symbol, name, price, quantity, totalAmount) => {
         // API call
-        const response = await fetch(`${host}/api/stock/add`, {
+        const response = await fetch(`${host}/api/v1/stock/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'token': localStorage.getItem('token')
             },
-            body: JSON.stringify({ symbol, name, buy_price, curr_price, qty })
+            body: JSON.stringify({ token: localStorage.getItem('token'), symbol, name, price, quantity, totalAmount })
         })
         const stock = await response.json()
         setStocks(stocks.concat(stock))
@@ -45,6 +45,7 @@ const StockState = (props) => {
                 'Content-Type': 'application/json',
                 'token': localStorage.getItem('token')
             },
+            body: JSON.stringify({ token: localStorage.getItem('token') })
         })
         await response.json();
 

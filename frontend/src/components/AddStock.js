@@ -4,12 +4,12 @@ import stockContext from '../context/stocks/stockContext'
 function AddStock(props) {
     const context = useContext(stockContext)
     const { addStock } = context
-    const [stock, setStock] = useState({ symbol: "", name: "", buy_price: "", curr_price: "", qty: "" })
+    const [stock, setStock] = useState({ symbol: "", name: "", price: "", quantity: "", totalAmount: "" })
 
     const add = (e) => {
         e.preventDefault()
-        addStock(stock.symbol, stock.name, stock.buy_price, stock.curr_price, stock.qty)
-        setStock({ symbol: "", name: "", buy_price: "", curr_price: "", qty: "" })
+        addStock(stock.symbol, stock.name, stock.price, stock.quantity, stock.totalAmount)
+        setStock({ symbol: "", name: "", price: "", quantity: "", totalAmount: "" })
         props.showAlert("Stock Added!", "Success", "success")
     }
 
@@ -20,85 +20,95 @@ function AddStock(props) {
     return (
         <div className='container my-3'>
             <h1 className='display-6'>Add a Stock</h1>
+            <div className="my-4"></div>
             <form className='my-3'>
-                <div className="mb-3">
-                    <label htmlFor="symbol" className="form-label">
-                        Symbol
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="symbol"
-                        onChange={onChange}
-                        name="symbol"
-                        minLength={3}
-                        required
-                        value={stock.symbol}
-                    />
+                <div className="row">
+                    <div className="col mb-3">
+                        <label htmlFor="symbol" className="form-label">
+                            Symbol
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="symbol"
+                            onChange={onChange}
+                            name="symbol"
+                            minLength={3}
+                            required
+                            value={stock.symbol}
+                            style={{ width: '100px' }}
+                        />
+                    </div>
+                    <div className="col mb-3">
+                        <label htmlFor="name" className="form-label">
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="name"
+                            onChange={onChange}
+                            name="name"
+                            minLength={4}
+                            required
+                            value={stock.name}
+                            style={{ width: '150px' }}
+                        />
+                    </div>
+                    <div className="col mb-3">
+                        <label htmlFor="price" className="form-label">
+                            Price
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="price"
+                            onChange={onChange}
+                            name="price"
+                            minLength={2}
+                            required
+                            value={stock.price}
+                            style={{ width: '100px' }}
+                        />
+                    </div>
+                    <div className="col mb-3">
+                        <label htmlFor="quantity" className="form-label">
+                            Quantity
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="quantity"
+                            onChange={onChange}
+                            name="quantity"
+                            minLength={2}
+                            required
+                            value={stock.quantity}
+                            style={{ width: '100px' }}
+                        />
+                    </div>
+                    <div className="col mb-3">
+                        <label htmlFor="totalAmount" className="form-label">
+                            Total Amount
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="totalAmount"
+                            onChange={onChange}
+                            name="totalAmount"
+                            minLength={1}
+                            required
+                            value={stock.totalAmount}
+                            style={{ width: '100px' }}
+                        />
+                    </div>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="name" className="form-label">
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        onChange={onChange}
-                        name="name"
-                        minLength={4}
-                        required
-                        value={stock.name}
-                    />
+                <div className="text-center my-4">
+                    <button disabled={stock.symbol.length < 3 || stock.name.length < 4 || stock.price.length < 1 || stock.quantity.length < 1 || stock.totalAmount.length < 1} type="submit" className="btn btn-primary" onClick={add}>
+                        ADD
+                    </button>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="buy_price" className="form-label">
-                        Buy Price
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="buy_price"
-                        onChange={onChange}
-                        name="buy_price"
-                        minLength={2}
-                        required
-                        value={stock.buy_price}
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="curr_price" className="form-label">
-                        Current Price
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="curr_price"
-                        onChange={onChange}
-                        name="curr_price"
-                        minLength={2}
-                        required
-                        value={stock.curr_price}
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="qty" className="form-label">
-                        Quantity
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="qty"
-                        onChange={onChange}
-                        name="qty"
-                        minLength={1}
-                        required
-                        value={stock.qty}
-                    />
-                </div>
-                <button disabled={stock.symbol.length < 3 || stock.name.length < 4 || stock.buy_price.length < 2 || stock.curr_price.length < 2 || stock.qty.length < 1} type="submit" className="btn btn-primary" onClick={add}>
-                    ADD
-                </button>
             </form>
         </div>
     )
