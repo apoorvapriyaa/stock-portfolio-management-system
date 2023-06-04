@@ -8,6 +8,7 @@ function Login(props) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const response = await fetch("http://localhost:3001/api/v1/login", {
+
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
