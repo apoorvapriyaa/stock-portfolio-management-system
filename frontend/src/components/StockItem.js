@@ -19,7 +19,8 @@ function StockItem(props) {
                     <td><i className="fa-solid fa-trash-can mx-2" onClick={() => {
                         deleteStock(stock._id)
                         props.showAlert("Stock Successfully deleted!", "Success", "success")
-                    }} /></td>
+                    }} />
+                    </td>
                 </tr>
             </tbody>
         </>

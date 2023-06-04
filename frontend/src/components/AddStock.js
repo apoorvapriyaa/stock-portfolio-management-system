@@ -11,6 +11,7 @@ function AddStock(props) {
         addStock(stock.symbol, stock.name, stock.price, stock.quantity, stock.totalAmount)
         setStock({ symbol: "", name: "", price: "", quantity: "", totalAmount: "" })
         props.showAlert("Stock Added!", "Success", "success")
+        window.location.reload()
     }
 
     const onChange = (e) => {
