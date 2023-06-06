@@ -1,14 +1,19 @@
 const stock = require('../models/stockModel')
 const ErrorHandler = require('../utils/errorhandler')
 const catchAsyncError = require('../middlewares/catchAsyncError')
+const axios = require('axios');
 
 //get all products
 exports.getAllStocks = catchAsyncError(async (req, res, next) => {
     const stocks = await stock.find({ user: req.user._id });
-    stocks.forEach((stock) => {
-        const predicted = getPrediction(stock.name);
-        stock.predicted = predicted;
-      });
+    for (const stockItem of stocks) {
+        try {
+          const predicted = await runStockPredictionScript(stockItem.name.trim());
+          stockItem.predicted = predicted.trim();
+        } catch (error) {
+          console.error(`Error predicting stock for ${stockItem.name}: ${error}`);
+        }
+    }
     //console.log(stocks); 
     res.status(200).json({
         status: true,
@@ -43,6 +48,11 @@ exports.deleteStock = catchAsyncError(async (req, res, next) => {
     })
 })
 
-const getPrediction = (companyName)=>{
-    return "Bullish";
+const runStockPredictionScript = async (company)=>{
+    const apiUrl = 'http://localhost:8000/predict';
+
+    const requestData = {company};
+
+    const {data} = await axios.post(apiUrl, requestData)
+    return data.prediction;
 }
