@@ -5,6 +5,10 @@ const catchAsyncError = require('../middlewares/catchAsyncError')
 //get all products
 exports.getAllStocks = catchAsyncError(async (req, res, next) => {
     const stocks = await stock.find({ user: req.user._id });
+    stocks.forEach((stock) => {
+        const predicted = getPrediction(stock.name);
+        stock.predicted = predicted;
+      });
     //console.log(stocks); 
     res.status(200).json({
         status: true,
@@ -38,3 +42,7 @@ exports.deleteStock = catchAsyncError(async (req, res, next) => {
         console.log(err)
     })
 })
+
+const getPrediction = (companyName)=>{
+    return "Bullish";
+}
